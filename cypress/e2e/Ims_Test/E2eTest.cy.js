@@ -1,15 +1,23 @@
 import Login from "../Ims_pages/LoginPage.cy";
+import AgentIncidentPage from "../Ims_pages/agentIncidentPage.cy";
 import IncidentDetailPage from "../Ims_pages/incidentDetailPage.cy";
 import IncidentMessagePage from "../Ims_pages/incidentMessagePage.cy";
 import Incident from "../Ims_pages/incidentPage.cy";
+import Location from "../Ims_pages/locationPage.cy";
+import MyIncidentPage from "../Ims_pages/myIncidentPage.cy";
+import Settings from "../Ims_pages/settings.cy";
 
 describe(" ",()=>{
   const login = new Login()
   const incident = new Incident()
+  const myIncident = new MyIncidentPage()
+  const agentIncident = new AgentIncidentPage()
   const detailPage = new IncidentDetailPage()
   const message = new IncidentMessagePage()
+  const setting = new Settings()
+  const location = new Location()
   
-  let loginData,incidentData;
+  let loginData,incidentData,lotionData;
   const file = 'file.pdf';
 
      before(" ", ()=>{
@@ -20,6 +28,7 @@ describe(" ",()=>{
         cy.fixture("ims_data.json").then((data) => {
            loginData = data[0]
            incidentData = data[1]
+           lotionData = data[2]
         
           })
     }) 
@@ -35,13 +44,13 @@ describe(" ",()=>{
   it("Verifying that a user can create an incident successfully",()=>{
      incident.click_incidentTab()
       incident.click_myIncident()
-      incident.click_add_new_incident()
-      incident.enter_incident_title(incidentData.title)
-      incident.select_incident_type()
-      incident.enter_incident_message(incidentData.incident_message)
-      incident.select_location()
-      incident.file_upload(file)
-      incident.click_saveBtn()
+      myIncident.click_add_new_incident()
+      myIncident.enter_incident_title(incidentData.title)
+      myIncident.select_incident_type()
+      myIncident.enter_incident_message(incidentData.incident_message)
+      myIncident.select_location()
+      myIncident.file_upload(file)
+      myIncident.click_saveBtn()
      
   })
   it("Verify incident created can be viewed in the incident detail page",()=>{
@@ -49,8 +58,29 @@ describe(" ",()=>{
     incident.click_incidentTab()
     detailPage.verify_incident_detail_page_title()
   })
-  it("Verify the messaging functionality",()=>{
+  it("Verify that a user can message an agent",()=>{
     message.click_message_button()
     message.add_chat_message_to_incident(incidentData.incident_message)
+  })
+  it("Verify that an agent can view incident assigned to them",()=>{
+    incident.click_incidentTab()
+    agentIncident.click_agent_incident()
+    incident.click_incidentTab()
+    incident.click_incident_created_in_table()
+  })
+  it("Verify that a user can message an agent",()=>{
+    message.click_message_button()
+    message.add_chat_message_to_incident(incidentData.incident_message)
+    agentIncident.clicK_submit_reply()
+  })
+  it("Verify that an admin can create a location",()=>{
+   setting.click_on_settings_tab()
+   setting.click_on_Location()
+   setting.click_on_settings_tab()
+   location.click_add_new_location()
+   location.enter_location_name(lotionData.name)
+   location.enter_location_description(lotionData.description)
+   myIncident.click_saveBtn()
+   location.verify_location_created(lotionData.name)
   })
 })
