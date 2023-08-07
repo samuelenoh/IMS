@@ -3,9 +3,11 @@ import AgentIncidentPage from "../Ims_pages/agentIncidentPage.cy";
 import IncidentDetailPage from "../Ims_pages/incidentDetailPage.cy";
 import IncidentMessagePage from "../Ims_pages/incidentMessagePage.cy";
 import Incident from "../Ims_pages/incidentPage.cy";
+import IncidentStatusPage from "../Ims_pages/incidentStatusPage.cy";
 import Location from "../Ims_pages/locationPage.cy";
 import MyIncidentPage from "../Ims_pages/myIncidentPage.cy";
 import Settings from "../Ims_pages/settings.cy";
+import SeverityLevelPage from "../Ims_pages/severityLevelPage.cy";
 
 describe(" ",()=>{
   const login = new Login()
@@ -16,8 +18,10 @@ describe(" ",()=>{
   const message = new IncidentMessagePage()
   const setting = new Settings()
   const location = new Location()
+  const severity = new SeverityLevelPage()
+  const status = new IncidentStatusPage()
   
-  let loginData,incidentData,lotionData;
+  let loginData,incidentData,lotionData,severityData,statusData;
   const file = 'file.pdf';
 
      before(" ", ()=>{
@@ -29,6 +33,9 @@ describe(" ",()=>{
            loginData = data[0]
            incidentData = data[1]
            lotionData = data[2]
+           severityData = data[3]
+           statusData = data[4]
+
         
           })
     }) 
@@ -83,4 +90,23 @@ describe(" ",()=>{
    myIncident.click_saveBtn()
    location.verify_location_created(lotionData.name)
   })
+  it("Verify that an admin can create a severity level",()=>{
+    setting.click_on_settings_tab()
+    severity.click_severity_level()
+    setting.click_on_settings_tab()
+    severity.click_add_new_severity()
+    severity.enter_severity_name(severityData.severity_name)
+    severity.enter_severity_descruiption(severityData.description)
+    myIncident.click_saveBtn()
+    severity.verifying_severity_created()
+   })
+   it("Verify that an admin can create incindent status",()=>{
+    setting.click_on_settings_tab()
+    status.click_incident_status()
+    setting.click_on_settings_tab()
+    status.click_add_new_incident_status()
+    status.enter_status_name(statusData.statusName)
+    status.enter_status_description(statusData.description)
+    status.click_showReply_btn()
+   })
 })

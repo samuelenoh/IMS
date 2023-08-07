@@ -1,14 +1,24 @@
-[{
+[
+{
   "email": "incident.management@amalitech.com",
   "password": "Str0n&P@sS"
-
 },
 {
 "title":"broken screen",
 "incident_message":"broken screen"
-},{
+},
+{
   "name":"kumasi",
   "description":"Ashanti Region"
+},
+{
+  "severity_name":"High low",
+  "description":"Not sure "
+}
+,
+{
+  "statusName":"in close",
+  "description":"Not sure "
 }
 
 ]
