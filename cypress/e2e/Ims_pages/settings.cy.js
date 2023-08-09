@@ -2,7 +2,7 @@ class Settings{
 
 click_on_settings_tab(){
     cy.contains("Settings")
-    .click()
+    .click({force:true})
 }
 click_on_users(){
     cy.contains("Users")

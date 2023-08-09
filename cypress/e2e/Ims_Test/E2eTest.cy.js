@@ -1,9 +1,11 @@
 import Login from "../Ims_pages/LoginPage.cy";
+import AgenGroupPage from "../Ims_pages/agentGrouppage.cy";
 import AgentIncidentPage from "../Ims_pages/agentIncidentPage.cy";
 import IncidentDetailPage from "../Ims_pages/incidentDetailPage.cy";
 import IncidentMessagePage from "../Ims_pages/incidentMessagePage.cy";
 import Incident from "../Ims_pages/incidentPage.cy";
 import IncidentStatusPage from "../Ims_pages/incidentStatusPage.cy";
+import IncidentTypePage from "../Ims_pages/incidentTypes.cy";
 import Location from "../Ims_pages/locationPage.cy";
 import MyIncidentPage from "../Ims_pages/myIncidentPage.cy";
 import Settings from "../Ims_pages/settings.cy";
@@ -20,8 +22,10 @@ describe(" ",()=>{
   const location = new Location()
   const severity = new SeverityLevelPage()
   const status = new IncidentStatusPage()
+  const agent_group = new AgenGroupPage()
+  const incident_type = new IncidentTypePage()
   
-  let loginData,incidentData,lotionData,severityData,statusData;
+  let loginData,incidentData,lotionData,severityData,statusData,agentGroup,incidentTypeData;
   const file = 'file.pdf';
 
      before(" ", ()=>{
@@ -35,6 +39,8 @@ describe(" ",()=>{
            lotionData = data[2]
            severityData = data[3]
            statusData = data[4]
+           agentGroup = data[5]
+           incidentTypeData = data[6]
 
         
           })
@@ -108,5 +114,28 @@ describe(" ",()=>{
     status.enter_status_name(statusData.statusName)
     status.enter_status_description(statusData.description)
     status.click_showReply_btn()
+   })
+
+   it("Verify that an admin can create inicident type",()=>{
+    setting.click_on_settings_tab()
+    incident_type.click_incident_type()
+    setting.click_on_settings_tab()
+    incident_type.click_add_new_incident_type()
+    incident_type.enter_incident_type_name(incidentTypeData.incidentType)
+    incident_type.select_agent()
+    incident_type.enter_incident_type_description(incidentTypeData.description)
+
+
+   })
+
+   it("Verify that an admin can create an agent group",()=>{
+    setting.click_on_settings_tab()
+    agent_group.click_agent_group()
+    setting.click_on_settings_tab()
+    agent_group.click_add_new_agent_group()
+    agent_group.enter_agent_group_name(agentGroup.AgentGroupName)
+    agent_group.enter_agent_group_description(agentGroup.description)
+    agent_group.select_agent()
+    agent_group.click_saveBtn()
    })
 })

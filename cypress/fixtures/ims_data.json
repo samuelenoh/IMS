@@ -8,8 +8,8 @@
 "incident_message":"broken screen"
 },
 {
-  "name":"kumasi",
-  "description":"Ashanti Region"
+  "name":"Koforidua",
+  "description":"Eastern Region"
 },
 {
   "severity_name":"High low",
@@ -19,6 +19,14 @@
 {
   "statusName":"in close",
   "description":"Not sure "
+},
+{
+  "AgentGroupName":"Marketing ",
+  "description":"Marketing is "
+},
+{
+  "incidentType":"broken screen",
+  "description":"incident of all broken screen "
 }
 
 ]

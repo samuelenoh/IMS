@@ -6,7 +6,7 @@ class IncidentStatusPage{
     
     click_incident_status(){
         cy.contains("Incident Status")
-        .click()
+        .click({force:true})
     }
     click_add_new_incident_status(){
         cy.contains("Add New Incident Status")

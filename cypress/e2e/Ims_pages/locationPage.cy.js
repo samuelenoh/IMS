@@ -18,10 +18,12 @@ class Location{
     }
     verify_location_created(expectedText){
         cy.get(this.locationCreated)
+
         .invoke('text')
         .then((actualText) => {
-          expect(actualText.trim()).to.equal(expectedText); 
+          expect(actualText).equal(expectedText); 
         });
     }
+   
 }
 export default Location;
